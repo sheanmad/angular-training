@@ -1,0 +1,35 @@
+<div class="pokemon-list-container" [ngClass]="theme">
+  <h1>Pokemon List</h1>
+
+  <div class="filter-controls">
+    <input 
+      type="text" 
+      placeholder="Search by name" 
+      [(ngModel)]="filter" 
+      (input)="applyFilter()" />
+    
+    <select [(ngModel)]="selectedElement" (change)="applyFilter()">
+      <option value="">All Elements</option>
+      <option *ngFor="let element of elements" [value]="element">{{ element }}</option>
+    </select>
+  </div>
+
+  <div class="pokemon-grid">
+    <div 
+      class="pokemon-card" 
+      *ngFor="let pokemon of paginatedPokemon" 
+      (click)="navigateToDetail(pokemon)">
+      <img [src]="pokemon.image" [alt]="pokemon.name" />
+      <h3>{{ pokemon.name }}</h3>
+      <p>Type: {{ pokemon.element }}</p>
+    </div>
+  </div>
+
+  <div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+
+  <button class="theme-toggle" (click)="toggleTheme()">Toggle Theme</button>
+</div>

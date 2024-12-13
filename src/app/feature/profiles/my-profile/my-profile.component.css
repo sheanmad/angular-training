@@ -1,0 +1,73 @@
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 2rem;
+    gap: 2rem;
+}
+
+.content-description {
+    flex: 1;
+    max-width: 70%;
+}
+
+.content-image {
+    flex: 1;
+    max-width: 30%;
+}
+
+.content-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.content-image:hover{
+    transform: scale(1.05);
+}
+
+.title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--gray-900);
+}
+
+.content-description p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    color: var(--gray-700);
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-info, .about-me, .skills {
+    background-color: #f4f4f4;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.skills ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style-type: none;
+    padding: 0;
+}
+
+.skills li {
+    background-color: #FF6EA2;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.skills li:hover{
+    background-color: transparent;
+    color: #7264D0;
+}

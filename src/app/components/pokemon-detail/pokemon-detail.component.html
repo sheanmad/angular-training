@@ -1,0 +1,6 @@
+<div class="pokemon-detail" [ngClass]="theme">
+    <h2>{{ pokemonDetails.name | uppercase }}</h2>
+    <img [src]="pokemonDetails.sprites?.front_default" [alt]="pokemonDetails.name" />
+    <p>Element: {{ pokemonDetails.types[0]?.type?.name | uppercase }}</p>
+  </div>
+  

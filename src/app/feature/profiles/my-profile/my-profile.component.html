@@ -1,0 +1,26 @@
+<section id="profile" class="content about">
+    <div class="content-description">
+        <h1 class="title">About Me</h1>
+        <p>{{ profileData.aboutMe }}</p>
+        
+        <div class="profile-details">
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                <p><strong>Email:</strong> {{ profileData.email }}</p>
+                <p><strong>Phone:</strong> {{ profileData.phoneNumber }}</p>
+                <p><strong>Location:</strong> {{ profileData.location }}</p>
+            </div>
+
+            <div class="skills">
+                <h2>Skills</h2>
+                <ul>
+                    <li *ngFor="let skill of profileData.skills">{{ skill }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <aside class="content-image" aria-label="Profile Image">
+        <img [src]="profileData.profileImage" alt="Profile Picture">
+    </aside>
+</section>

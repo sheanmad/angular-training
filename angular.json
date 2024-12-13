@@ -60,7 +60,14 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/main.ts",
+                  "with": "src/main.prod.ts"
+                }
+              ],
+              "optimization": true
             },
             "development": {
               "optimization": false,

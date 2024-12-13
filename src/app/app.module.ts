@@ -4,13 +4,20 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { ProductsModule } from './feature/products/products.module';
+import { ProfilesModule } from './feature/profiles/profiles.module';
+import { ComponentsModule } from './components/components.module';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ProductsModule,
+    ProfilesModule,
+    ComponentsModule
   ],
   providers: [
     provideClientHydration(withEventReplay())
