@@ -1,26 +1,43 @@
-<div *ngIf="pokemonDetails; else loadingTemplate" class="pokemon-detail">
-  <h2>{{ pokemonDetails.name | titlecase }}</h2>
-  <img
-    [src]="pokemonDetails.sprites?.front_default"
-    [alt]="'{{ pokemonDetails.name }}'"/>
+<div *ngIf="pokemonDetails" class="pokemon-detail">
+  <h1>{{ pokemonDetails.name | titlecase }}</h1>
 
-  <button class="cry-button" (click)="playPokemonCry()">Play Cry</button>
+  <!-- Pokemon-Overview -->
+  <div class="pokemon-overview">
+    <!-- Pokemon Info-->
+    <div class="pokemon-info">
+      <img
+        [src]="pokemonDetails.sprites?.front_default"
+        [alt]="'{{ pokemonDetails.name }}'"/>
 
-  <p>
-    <span
-      *ngFor="let type of pokemonDetails.types"
-      [ngStyle]="{
-        'background-color': getTypeColor(type.type.name),
-        color: 'white'
-      }"
-    >
-      {{ type.type.name }}
-    </span>
-  </p>
+      <button class="cry-button" (click)="playPokemonCry()">Play Cry</button>
+
+      <p>
+        <span
+          *ngFor="let type of pokemonDetails.types"
+          [ngStyle]="{
+            'background-color': getTypeColor(type.type.name),
+            color: 'white'
+          }"
+        >
+          {{ type.type.name }}
+        </span>
+      </p>
+    </div>
+
+    <!-- Abilities Section -->
+    <div class="abilities-section">
+      <p>Abilities</p>
+      <ul>
+        <li *ngFor="let ability of pokemonDetails.abilities">
+          {{ ability.ability.name | titlecase }}
+        </li>
+      </ul>
+    </div>
+  </div>
 
   <!-- Stats Section -->
   <div class="stats-section">
-    <h3>Stats</h3>
+    <h2>Stats</h2>
     <div *ngFor="let stat of pokemonDetails.stats" class="stat-item">
       <!-- Stat name -->
       <span class="stat-name">{{ stat.stat.name | uppercase }}</span>
@@ -33,17 +50,6 @@
         </div>
       </div>
     </div>
-  </div>
-  
-
-  <!-- Abilities Section -->
-  <div class="abilities-section">
-    <h3>Abilities</h3>
-    <ul>
-      <li *ngFor="let ability of pokemonDetails.abilities">
-        {{ ability.ability.name | titlecase }}
-      </li>
-    </ul>
   </div>
 
   <!-- Evolution Section -->
@@ -78,7 +84,3 @@
     </table>
   </div>
 </div>
-
-<ng-template #loadingTemplate>
-  <p>Loading Pokémon details...</p>
-</ng-template>

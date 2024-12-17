@@ -53,7 +53,9 @@ export class PokemonDetailComponent implements OnInit {
     const chainData = await this.pokemonService.getEvolutionChain(evolutionChainUrl);
 
     this.evolutionChain = this.parseEvolutionChain(chainData.chain);
-    this.selectedEvolutionIndex = 0;
+    this.selectedEvolutionIndex = this.evolutionChain.findIndex(
+      (pokemon) => pokemon.name ===name
+    );
   }
 
   playPokemonCry() {
@@ -87,7 +89,6 @@ export class PokemonDetailComponent implements OnInit {
   async evolve() {
     if (this.selectedEvolutionIndex < this.evolutionChain.length - 1) {
       this.selectedEvolutionIndex++;
-      console.log(this.selectedEvolutionIndex);
       const nextPokemonName = this.evolutionChain[this.selectedEvolutionIndex].name;
 
       this.router.navigate([`pokemon-detail/${nextPokemonName}`]);
@@ -98,7 +99,6 @@ export class PokemonDetailComponent implements OnInit {
   async devolve() {
     if (this.selectedEvolutionIndex > 0) {
       this.selectedEvolutionIndex--;
-      console.log(this.selectedEvolutionIndex);
       const prevPokemonName = this.evolutionChain[this.selectedEvolutionIndex].name;
 
       this.router.navigate([`pokemon-detail/${prevPokemonName}`]);
