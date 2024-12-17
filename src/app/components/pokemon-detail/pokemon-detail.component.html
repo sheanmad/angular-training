@@ -1,5 +1,84 @@
-<div *ngIf="pokemonDetails" class="pokemon-detail" [ngClass]="theme">
-    <h2>{{ pokemonDetails.name | uppercase }}</h2>
-    <img [src]="pokemonDetails.sprites?.front_default" [alt]="pokemonDetails.name" />
-    <p>Element: {{ pokemonDetails.types[0]?.type?.name | uppercase }}</p>
+<div *ngIf="pokemonDetails; else loadingTemplate" class="pokemon-detail">
+  <h2>{{ pokemonDetails.name | titlecase }}</h2>
+  <img
+    [src]="pokemonDetails.sprites?.front_default"
+    [alt]="'{{ pokemonDetails.name }}'"/>
+
+  <button class="cry-button" (click)="playPokemonCry()">Play Cry</button>
+
+  <p>
+    <span
+      *ngFor="let type of pokemonDetails.types"
+      [ngStyle]="{
+        'background-color': getTypeColor(type.type.name),
+        color: 'white'
+      }"
+    >
+      {{ type.type.name }}
+    </span>
+  </p>
+
+  <!-- Stats Section -->
+  <div class="stats-section">
+    <h3>Stats</h3>
+    <div *ngFor="let stat of pokemonDetails.stats" class="stat-item">
+      <!-- Stat name -->
+      <span class="stat-name">{{ stat.stat.name | uppercase }}</span>
+      <!-- Progress bar -->
+      <div class="progress-bar-container">
+        <div 
+          class="progress-bar {{ stat.stat.name.toLowerCase().replace(' ', '-') }}" 
+          [style.width.%]="stat.base_stat">
+          {{ stat.base_stat }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Abilities Section -->
+  <div class="abilities-section">
+    <h3>Abilities</h3>
+    <ul>
+      <li *ngFor="let ability of pokemonDetails.abilities">
+        {{ ability.ability.name | titlecase }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Evolution Section -->
+  <div *ngIf="evolutionChain.length > 0" class="evolution-section">
+    <div class="button-group">
+      <button
+        [ngClass]="{ 'bg-white': selectedEvolutionIndex === 0 }"
+        (click)="devolve()"
+        [disabled]="selectedEvolutionIndex === 0"
+      >
+        Devolve
+      </button>
+      <button
+        [ngClass]="{ 'bg-white': selectedEvolutionIndex === evolutionChain.length - 1 }"
+        (click)="evolve()"
+        [disabled]="selectedEvolutionIndex === evolutionChain.length - 1"
+      >
+        Evolve
+      </button>
+    </div>
+
+    <table class="evolution-table">
+      <tr>
+        <th>Evolution</th>
+      </tr>
+      <tr
+        *ngFor="let evo of evolutionChain; let i = index"
+        [class.highlight]="i === selectedEvolutionIndex"
+      >
+        <td>{{ evo.name | titlecase }}</td>
+      </tr>
+    </table>
+  </div>
 </div>
+
+<ng-template #loadingTemplate>
+  <p>Loading Pokémon details...</p>
+</ng-template>
