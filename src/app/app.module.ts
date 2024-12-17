@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { ProductsModule } from './feature/products/products.module';
 import { ProfilesModule } from './feature/profiles/profiles.module';
 import { ComponentsModule } from './components/components.module';
+import { provideHttpClient } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,10 +19,12 @@ import { ComponentsModule } from './components/components.module';
     AppRoutingModule,
     ProductsModule,
     ProfilesModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
   ],
   providers: [
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    provideHttpClient()
   ],
   bootstrap: [AppComponent]
 })

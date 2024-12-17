@@ -1,0 +1,76 @@
+<form [formGroup]="pokemonForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="firstName">First Name: </label>
+      <input id="firstName" formControlName="firstName" />
+      <div *ngIf="pokemonForm.controls.firstName?.invalid && pokemonForm.controls.firstName?.touched">
+        Required!
+      </div>
+    </div>
+  
+    <div>
+      <label for="lastName">Last Name: </label>
+      <input id="lastName" formControlName="lastName" />
+      <div *ngIf="pokemonForm.controls.lastName?.invalid && pokemonForm.controls.lastName?.touched">
+        Required!
+      </div>
+    </div>
+  
+    <div>
+      <label for="email">Email: </label>
+      <input id="email" type="email" formControlName="email" />
+      <div *ngIf="pokemonForm.controls.email?.invalid && pokemonForm.controls.email?.touched">
+        Required!
+      </div>
+    </div>
+  
+    <div>
+        <label for="phone">Phone Number:</label>
+        <div class="phone-number-group">
+          <select id="phoneCountryCode" formControlName="phoneCountryCode">
+            <option value="+1">+1 (US)</option>
+            <option value="+62">+62 (ID)</option>
+          </select>
+          <input id="phone" formControlName="phone" placeholder="Enter phone number" />
+        </div>
+        <div *ngIf="pokemonForm.controls.phone?.touched && pokemonForm.controls.phone?.invalid">
+            Required!</div>
+    </div>
+  
+    <div>
+      <label for="address">Address: </label>
+      <textarea id="address" formControlName="address"></textarea>
+    </div>
+  
+    <div>
+        <label for="buyOption">Buy Option: </label>
+        <select id="buyOption" formControlName="buyOption">
+          <option value="" disabled>Select an option</option>
+          <option value="thisEvoOnly">This evo only</option>
+          <option value="buyAllEvolutions">Buy All Evolutions</option>
+        </select>
+        <div *ngIf="pokemonForm.controls.buyOption?.invalid && pokemonForm.controls.buyOption?.touched">
+          Required!
+        </div>
+      </div>
+    
+      <!-- Show the selected Pokémon or the whole evolution chain -->
+      <div *ngIf="pokemonForm.controls.buyOption?.value === 'thisEvoOnly'">
+        <h3>Pokemon Detail:</h3>
+        <div *ngIf="pokemonDetails">
+          <p>{{ pokemonDetails.name | titlecase }}</p>
+          <img [src]="pokemonDetails.sprites?.front_default" alt="{{ pokemonDetails.name }}" />
+          <p>{{ pokemonDetails.types[0].type.name | titlecase }} Type</p>
+        </div>
+      </div>
+    
+      <div *ngIf="pokemonForm.controls.buyOption?.value === 'buyAllEvolutions'">
+        <h3>All Evolutions:</h3>
+        <div *ngFor="let evo of evolutionChain">
+          <p>{{ evo.name | titlecase }}</p>
+          <img [src]="evo.sprite" alt="{{ evo.name }}" />
+        </div>
+      </div>
+  
+    <button type="submit" [disabled]="pokemonForm.invalid">Submit</button>
+  </form>
+  

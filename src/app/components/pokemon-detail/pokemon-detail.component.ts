@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
+import { RealtimeDatabaseService } from '../../services/realtime-database.service';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -37,7 +38,10 @@ export class PokemonDetailComponent implements OnInit {
     unknown: '#9E9E9E' // Unknown or other type
   };
 
-  constructor(private route: ActivatedRoute, private pokemonService: PokemonService, private router: Router) {}
+  constructor(private route: ActivatedRoute,
+    private pokemonService: PokemonService,
+    private router: Router,
+  private realtimeDatabaseService: RealtimeDatabaseService) {}
 
   ngOnInit(): void {
     this.fetchData();
@@ -113,5 +117,26 @@ export class PokemonDetailComponent implements OnInit {
 
   getTypeColor(type: string): string {
     return this.typeColors[type] || this.typeColors['unknown'];
+  }
+
+  isModalOpen = false;
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  async handleFormSubmit(formData: any) {
+    console.log('Form submitted:', formData);
+    try {
+      await this.realtimeDatabaseService.saveFormSubmission(formData);
+      console.log('Form data saved successfully!');
+    } catch (error) {
+      console.error('Error saving form data:', error);
+    }
+    this.closeModal();
   }
 }

@@ -83,4 +83,18 @@
       </tr>
     </table>
   </div>
+
+  <button class="button-form" (click)="openModal()">
+    Buy Pokemon
+  </button>
+
+  <div class="modal" [class.show]="isModalOpen">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Fill the Form</h2>
+      <!-- Form Component -->
+      <app-pokemon-form-submissions [pokemonDetails]="pokemonDetails" [evolutionChain]="evolutionChain" *ngIf="isModalOpen" (formSubmit)="handleFormSubmit($event)">
+      </app-pokemon-form-submissions>
+    </div>
+  </div>
 </div>

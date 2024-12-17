@@ -106,4 +106,8 @@ export class PokemonListComponent implements OnInit, OnChanges, OnDestroy {
   navigateToDetail(pokemon: any) {
     this.router.navigate(['/pokemon-detail', pokemon.name]);
   }
+
+  navigateToTableSubmission() {
+    this.router.navigate(['/pokemon-table-submission']);
+  }
 }
