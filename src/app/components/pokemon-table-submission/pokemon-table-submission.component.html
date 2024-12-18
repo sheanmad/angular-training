@@ -20,10 +20,41 @@
           <td>{{ submission.phone }}</td>
           <td>{{ submission.pokemonToBuy }}</td>
           <td>
+            <button (click)="startEdit(submission)">Edit</button>
             <button (click)="deleteSubmission(submission.id)">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
+
+    <div *ngIf="selectedSubmission" class="edit-form">
+      <h3>Edit Submission</h3>
+      <form (ngSubmit)="saveEdit()">
+        <label>
+          First Name:
+          <input type="text" [(ngModel)]="selectedSubmission.firstName" name="firstName" required />
+        </label>
+        <label>
+          Last Name:
+          <input type="text" [(ngModel)]="selectedSubmission.lastName" name="lastName" required />
+        </label>
+        <label>
+          Email:
+          <input type="email" [(ngModel)]="selectedSubmission.email" name="email" required />
+        </label>
+        <label>
+          Phone Number:
+          <input type="text" [(ngModel)]="selectedSubmission.phone" name="phone" required />
+        </label>
+        <label>
+          Pokemon to Buy:
+          <input type="text" [(ngModel)]="selectedSubmission.pokemonToBuy" name="pokemonToBuy" required />
+        </label>
+        <div>
+          <button type="submit">Save</button>
+          <button type="button" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
   

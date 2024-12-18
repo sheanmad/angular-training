@@ -4,7 +4,6 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ProductsModule } from './feature/products/products.module';
 import { ProfilesModule } from './feature/profiles/profiles.module';
 import { ComponentsModule } from './components/components.module';
 import { provideHttpClient } from '@angular/common/http';
@@ -17,7 +16,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ProductsModule,
     ProfilesModule,
     ComponentsModule,
     ReactiveFormsModule
