@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RealtimeDatabaseService } from '../../services/realtime-database.service';
+import { CanComponenDeactivate } from '../../guards/can-deactivate.guard';
 
 @Component({
   selector: 'app-pokemon-table-submission',
@@ -8,9 +9,10 @@ import { RealtimeDatabaseService } from '../../services/realtime-database.servic
   templateUrl: './pokemon-table-submission.component.html',
   styleUrl: './pokemon-table-submission.component.css'
 })
-export class PokemonTableSubmissionComponent implements OnInit {
+export class PokemonTableSubmissionComponent implements OnInit, CanComponenDeactivate{
   submissions: any[] = [];
   selectedSubmission: any | null = null;
+  isFormDirty: boolean = false;
 
   constructor(private dbService: RealtimeDatabaseService) { }
 
@@ -56,5 +58,15 @@ export class PokemonTableSubmissionComponent implements OnInit {
     }catch(error){
       console.error('Error saving update', error);
     }
+  }
+  onInputChange(): void{
+    this.isFormDirty = true;
+  }
+
+  canDeactivate(): boolean {
+    if (this.isFormDirty) {
+      return confirm('You have unsaved changes. Do you really want to leave?');
+    }
+    return true;
   }
 }

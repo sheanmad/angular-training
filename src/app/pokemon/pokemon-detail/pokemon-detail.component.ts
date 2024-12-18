@@ -57,6 +57,12 @@ export class PokemonDetailComponent implements OnInit {
     const chainData = await this.pokemonService.getEvolutionChain(evolutionChainUrl);
 
     this.evolutionChain = this.parseEvolutionChain(chainData.chain);
+
+    // this.evolutionDetails = this.evolutionChain.map(async (name) => {
+    //   const details = await this.pokemonService.getPokemonDetails(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    //   return details;
+    // });
+
     this.selectedEvolutionIndex = this.evolutionChain.findIndex(
       (pokemon) => pokemon.name ===name
     );

@@ -1,0 +1,14 @@
+<nav class="navbar">
+    <div class="container">
+      <a routerLink="/" class="navbar-brand">PokemonApp</a>
+      <ul class="nav-links">
+        <li><a routerLink="/pokemon">Pokemon List</a></li>
+        <li><a routerLink="/pokemon-table-submission">Submissions</a></li>
+        <li *ngIf="isLoggedIn()" (click)="logout()" class="logout-button">
+          Logout
+        </li>
+        <li *ngIf="!isLoggedIn()"><a routerLink="/auth">Login</a></li>
+      </ul>
+    </div>
+</nav>
+  

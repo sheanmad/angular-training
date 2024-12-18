@@ -24,4 +24,4 @@ import { PokemonTableSubmissionComponent } from './pokemon-table-submission/poke
     PokemonFormSubmissionsComponent
   ]
 })
-export class ComponentsModule { }
+export class PokemonModule { }

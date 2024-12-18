@@ -32,23 +32,23 @@
       <form (ngSubmit)="saveEdit()">
         <label>
           First Name:
-          <input type="text" [(ngModel)]="selectedSubmission.firstName" name="firstName" required />
+          <input type="text" [(ngModel)]="selectedSubmission.firstName" name="firstName" (input)="onInputChange()" required />
         </label>
         <label>
           Last Name:
-          <input type="text" [(ngModel)]="selectedSubmission.lastName" name="lastName" required />
+          <input type="text" [(ngModel)]="selectedSubmission.lastName" name="lastName" (input)="onInputChange()" required />
         </label>
         <label>
           Email:
-          <input type="email" [(ngModel)]="selectedSubmission.email" name="email" required />
+          <input type="email" [(ngModel)]="selectedSubmission.email" name="email" (input)="onInputChange()" required />
         </label>
         <label>
           Phone Number:
-          <input type="text" [(ngModel)]="selectedSubmission.phone" name="phone" required />
+          <input type="text" [(ngModel)]="selectedSubmission.phone" name="phone" (input)="onInputChange()" required />
         </label>
         <label>
           Pokemon to Buy:
-          <input type="text" [(ngModel)]="selectedSubmission.pokemonToBuy" name="pokemonToBuy" required />
+          <input type="text" [(ngModel)]="selectedSubmission.pokemonToBuy" name="pokemonToBuy" (input)="onInputChange()" required />
         </label>
         <div>
           <button type="submit">Save</button>
