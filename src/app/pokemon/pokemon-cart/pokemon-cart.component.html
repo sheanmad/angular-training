@@ -1,0 +1,58 @@
+<div class="pokemon-cart-container">
+    <h2>Shopping Cart</h2>
+
+    <table *ngIf="cartItems.length > 0; else emptyCart" class="cart-table">
+      <thead>
+        <tr>
+          <th>Pokemon</th>
+          <th>Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>
+            <div class="pokemon-info">
+              <span>{{ item.pokemon.name }}</span>
+            </div>
+          </td>
+          <td>{{ item.quantity }}</td>
+          <td>
+            <button (click)="removeFromCart(item.pokemon.name)" class="btn-remove">
+              Remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <ng-template #emptyCart>
+      <p>Your cart is empty. Add some Pokémon!</p>
+    </ng-template>
+  
+    <button
+      *ngIf="cartItems.length > 0"
+      (click)="clearCart()"
+      class="btn-clear-cart"
+    >
+      Clear Cart
+    </button>
+
+    <button 
+        *ngIf="cartItems.length > 0"
+        class="btn-checkout" 
+        (click)="openModal()">
+        Buy Pokemon
+    </button>
+  
+      <div class="modal" [class.show]="isModalOpen">
+        <div class="modal-content">
+          <span class="close" (click)="closeModal()">&times;</span>
+          <h2>Fill the Form</h2>
+          <app-pokemon-form-submissions 
+            *ngIf="isModalOpen" 
+            (formSubmit)="handleFormSubmit($event)">
+          </app-pokemon-form-submissions>
+        </div>
+      </div>
+</div>

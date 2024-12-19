@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './auth.component.css'
 })
 export class AuthComponent {
-  isLoginMode: boolean = false;
+  isLoginMode: boolean = true;
   email: string = '';
   password: string = '';
   

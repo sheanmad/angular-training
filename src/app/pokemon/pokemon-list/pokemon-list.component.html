@@ -21,7 +21,15 @@
       (click)="navigateToDetail(pokemon)">
       <img [src]="pokemon.image" [alt]="pokemon.name" />
       <h3>{{ pokemon.name }}</h3>
-      <p>Type: {{ pokemon.element }}</p>
+      <p>
+        <span 
+          *ngFor="let type of pokemon.elements"
+          [ngStyle]="{
+            'background-color': getTypeColor(type),
+            color: 'white'
+          }"
+        >{{ type }}</span>
+      </p>
     </div>
   </div>
 

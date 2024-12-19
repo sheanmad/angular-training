@@ -1,14 +1,24 @@
 <nav class="navbar">
-    <div class="container">
-      <a routerLink="/" class="navbar-brand">PokemonApp</a>
-      <ul class="nav-links">
-        <li><a routerLink="/pokemon">Pokemon List</a></li>
-        <li><a routerLink="/pokemon-table-submission">Submissions</a></li>
-        <li *ngIf="isLoggedIn()" (click)="logout()" class="logout-button">
-          Logout
-        </li>
-        <li *ngIf="!isLoggedIn()"><a routerLink="/auth">Login</a></li>
-      </ul>
-    </div>
+  <div class="container">
+    <a routerLink="/" class="navbar-brand" 
+       (click)="setActiveLink('/')">Pokédex</a>
+    <ul class="nav-links">
+      <li [ngClass]="{'active': isLinkActive('/pokemon')}" 
+          (click)="setActiveLink('/pokemon')">
+        <a routerLink="/pokemon">Pokemon List</a>
+      </li>
+      <li [ngClass]="{'active': isLinkActive('/pokemon/submission')}" 
+          (click)="setActiveLink('/pokemon/submission')">
+        <a routerLink="/pokemon/submission">Submissions</a>
+      </li>
+      <li [ngClass]="{'active': isLinkActive('/pokemon/cart')}" 
+          (click)="setActiveLink('/pokemon/cart')">
+        <a routerLink="/pokemon/cart">Cart</a>
+        <span *ngIf="getCartQuantity() > 0" class="cart-quantity">{{ getCartQuantity() }}</span>
+      </li>
+      <li (click)="logout()" class="logout-button">
+        Logout
+      </li>
+    </ul>
+  </div>
 </nav>
-  

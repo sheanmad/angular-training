@@ -13,6 +13,8 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AuthComponent } from './components/auth/auth.component';
 import { LayoutComponent } from './layout/layout.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { StoreModule } from '@ngrx/store';
+import { cartReducer } from './state/cart/cart.reducer';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,16 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     ProfilesModule,
     PokemonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot(
+      { cart: cartReducer },
+      {
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+        },
+      }
+    ),
   ],
   providers: [
     provideClientHydration(withEventReplay()),

@@ -3,11 +3,11 @@ import { ProfileService } from '../profiles.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-my-profile',
+  selector: 'app-profile',
   standalone: false,
   
-  templateUrl: './my-profile.component.html',
-  styleUrl: './my-profile.component.css'
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.css'
 })
 export class MyProfileComponent implements OnInit{
   profileData: any;

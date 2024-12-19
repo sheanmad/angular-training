@@ -12,6 +12,7 @@ export class PokemonFormSubmissionsComponent implements OnInit{
   @Output() formSubmit = new EventEmitter<any>();
   @Input() pokemonDetails: any;
   @Input() evolutionChain: any[] = [];
+  @Input() evolutionDetails: any[] = [];
 
   pokemonForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
@@ -28,13 +29,16 @@ export class PokemonFormSubmissionsComponent implements OnInit{
     this.pokemonForm.controls['buyOption'].valueChanges.subscribe((buyOption) => {
       this.updatePokemonToBuy(buyOption ?? '');
     });
+
+
+
   }
 
   updatePokemonToBuy(buyOption: string): void {
     if (buyOption === 'thisEvoOnly') {
       this.pokemonForm.controls['pokemonToBuy'].setValue([this.pokemonDetails.name]);
     } else if (buyOption === 'buyAllEvolutions') {
-      const evolutionNames = this.evolutionChain.map(evo => evo.name);
+      const evolutionNames = this.evolutionDetails.map(evo => evo.name);
       this.pokemonForm.controls['pokemonToBuy'].setValue(evolutionNames);
     }
   }

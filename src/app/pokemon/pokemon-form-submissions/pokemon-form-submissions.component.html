@@ -59,15 +59,14 @@
         <div *ngIf="pokemonDetails">
           <p>{{ pokemonDetails.name | titlecase }}</p>
           <img [src]="pokemonDetails.sprites?.front_default" alt="{{ pokemonDetails.name }}" />
-          <p>{{ pokemonDetails.types[0].type.name | titlecase }} Type</p>
         </div>
       </div>
     
       <div *ngIf="pokemonForm.controls.buyOption?.value === 'buyAllEvolutions'">
         <h3>All Evolutions:</h3>
-        <div *ngFor="let evo of evolutionChain">
+        <div *ngFor="let evo of evolutionDetails">
           <p>{{ evo.name | titlecase }}</p>
-          <img [src]="evo.sprite" alt="{{ evo.name }}" />
+          <img [src]="evo.details.sprites?.front_default" alt="{{ evo.name }}" />
         </div>
       </div>
   

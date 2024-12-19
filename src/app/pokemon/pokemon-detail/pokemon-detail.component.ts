@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
 import { RealtimeDatabaseService } from '../../services/realtime-database.service';
+import { Store } from '@ngrx/store';
+import { addToCart } from '../../state/cart/cart.actions';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -15,6 +17,7 @@ export class PokemonDetailComponent implements OnInit {
   pokemonDetails: any = null;
   evolutionChain: any[] = [];
   selectedEvolutionIndex: number = 0;
+  evolutionDetails: any[] = [];
 
   typeColors: { [key: string]: string } = {
     fire: '#F44336', // Red
@@ -41,7 +44,8 @@ export class PokemonDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private pokemonService: PokemonService,
     private router: Router,
-  private realtimeDatabaseService: RealtimeDatabaseService) {}
+    private store: Store,
+  ) {}
 
   ngOnInit(): void {
     this.fetchData();
@@ -58,11 +62,12 @@ export class PokemonDetailComponent implements OnInit {
 
     this.evolutionChain = this.parseEvolutionChain(chainData.chain);
 
-    // this.evolutionDetails = this.evolutionChain.map(async (name) => {
-    //   const details = await this.pokemonService.getPokemonDetails(`https://pokeapi.co/api/v2/pokemon/${name}`);
-    //   return details;
+    // const evolutionPromises = this.evolutionChain.map(async (evolution) => {
+    //   const details = await this.pokemonService.getPokemonDetails(evolution.url);
+    //   return { name: evolution.name, details };
     // });
-
+    // this.evolutionDetails = await Promise.all(evolutionPromises);
+    
     this.selectedEvolutionIndex = this.evolutionChain.findIndex(
       (pokemon) => pokemon.name ===name
     );
@@ -101,7 +106,7 @@ export class PokemonDetailComponent implements OnInit {
       this.selectedEvolutionIndex++;
       const nextPokemonName = this.evolutionChain[this.selectedEvolutionIndex].name;
 
-      this.router.navigate([`pokemon-detail/${nextPokemonName}`]);
+      this.router.navigate([`/pokemon/detail/${nextPokemonName}`]);
       await this.loadPokemonDetails();
     }
   }
@@ -111,7 +116,7 @@ export class PokemonDetailComponent implements OnInit {
       this.selectedEvolutionIndex--;
       const prevPokemonName = this.evolutionChain[this.selectedEvolutionIndex].name;
 
-      this.router.navigate([`pokemon-detail/${prevPokemonName}`]);
+      this.router.navigate([`/pokemon/detail/${prevPokemonName}`]);
       await this.loadPokemonDetails();
     }
   }
@@ -125,24 +130,9 @@ export class PokemonDetailComponent implements OnInit {
     return this.typeColors[type] || this.typeColors['unknown'];
   }
 
-  isModalOpen = false;
-
-  openModal() {
-    this.isModalOpen = true;
-  }
-
-  closeModal() {
-    this.isModalOpen = false;
-  }
-
-  async handleFormSubmit(formData: any) {
-    console.log('Form submitted:', formData);
-    try {
-      await this.realtimeDatabaseService.saveFormSubmission(formData);
-      console.log('Form data saved successfully!');
-    } catch (error) {
-      console.error('Error saving form data:', error);
-    }
-    this.closeModal();
+  addToCart(pokemon: any){
+    const quantity = 1;
+    this.store.dispatch(addToCart({ pokemon, quantity }));
+    alert("Pokemon added to cart");
   }
 }
